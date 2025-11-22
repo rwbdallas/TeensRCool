@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>TeenChat 😎</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header">TeenChat 😎</div>
+    <div id="messages" class="chat-box"></div>
+    <input id="messageInput" type="text" placeholder="Nachricht eingeben..." />
+    <button onclick="sendMessage()">Senden</button>
+  </div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="chat.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Mod-Chat</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header">Mod-Chat 💬</div>
+    <div id="modMessages" class="chat-box"></div>
+    <input id="modInput" type="text" placeholder="Nachricht an Mods..." />
+    <button onclick="sendModMessage()">Senden</button>
+  </div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    const nickname = localStorage.getItem("nickname");
+
+    function sendModMessage() {
+      const input = document.getElementById("modInput");
+      const message = input.value;
+      if (message.trim()) {
+        socket.emit("mod message", { nickname, message });
+        input.value = "";
+      }
+    }
+
+    socket.on("mod message", function(data) {
+      const box = document.getElementById("modMessages");
+      const div = document.createElement("div");
+      div.innerHTML = "<strong>" + data.nickname + " (mod):</strong> " + data.message;
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+    });
+  </script>
+</body>
+</html>
